@@ -25,13 +25,14 @@ import "@openzeppelin/contracts/utils/Address.sol";
 import "@openzeppelin/contracts/utils/EnumerableSet.sol";
 import "@openzeppelin/contracts/utils/EnumerableMap.sol";
 import "@openzeppelin/contracts/utils/Strings.sol";
+import "@openzeppelin/contracts/access/Ownable.sol";
 
 /**
  * @title ERC721 Non-Fungible Token Standard basic implementation
  * @dev see https://eips.ethereum.org/EIPS/eip-721
  */
 contract ERC721 is
-    Context,
+    Ownable, 
     ERC165,
     IERC721,
     IERC721Metadata,
@@ -71,7 +72,6 @@ contract ERC721 is
     address public controller;
 
     uint256 public length;
-    address public owner;
 
     // Base URI
     string internal _baseURI;
@@ -111,7 +111,6 @@ contract ERC721 is
         // register the supported interfaces to conform to ERC721 via ERC165
         _registerInterface(_INTERFACE_ID_ERC721);
         _registerInterface(_INTERFACE_ID_ERC721_ENUMERABLE);
-        owner = msg.sender;
     }
 
     /**
@@ -404,7 +403,7 @@ contract ERC721 is
     }
 
     function mint(address to, uint256 tokenId) external{
-        require(msg.sender == controller, 'Not Controller');
+        require(msg.sender == controller || msg.sender == owner(), 'Not Controller');
 
         _safeMint(to, tokenId);
     }
@@ -607,8 +606,7 @@ contract ERC721 is
         uint256 tokenId
     ) internal virtual {}
 
-    function setController(address _controller) external {
-        require(msg.sender == owner, 'Not Owner');
+    function setController(address _controller) external onlyOwner{
         controller = _controller;
     }
 }

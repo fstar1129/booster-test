@@ -1,1 +1,3 @@
 npx hardhat run scripts/deploy.ts --network testnet
+
+npx hardhat verify "addr" 

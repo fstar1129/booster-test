@@ -5,6 +5,7 @@ import "@nomiclabs/hardhat-etherscan";
 import 'hardhat-typechain';
 import 'hardhat-deploy';
 import '@openzeppelin/hardhat-upgrades';
+require("dotenv").config();
 
 // You have to export an object to set up your config
 // This object can have the following optional entries:
@@ -27,11 +28,17 @@ const config: HardhatUserConfig = {
     ],
   },
   networks: {
-    hardhat: {
-      throwOnTransactionFailures: true,
-      throwOnCallFailures: true,
-      //allowUnlimitedContractSize: true,
+    localhost: {
+      url: "http://127.0.0.1:8545",
+      gasPrice: 20000000000,
+      accounts: [process.env.PRIVATEKEY]
     },
+    hardhat: {
+      chainId: 1337,
+      // throwOnTransactionFailures: true,
+      // throwOnCallFailures: true,
+      //allowUnlimitedContractSize: true,
+    }, 
     testnet: {
       url: "https://data-seed-prebsc-1-s1.binance.org:8545/",
       chainId: 97,
@@ -51,6 +58,16 @@ const config: HardhatUserConfig = {
       accounts: [process.env.PRIVATEKEY]
     },
     
+  }, 
+
+  paths: {
+    sources: "./contracts",
+    tests: "./test",
+    cache: "./cache",
+    artifacts: "./artifacts"
+  },
+  mocha: {
+    timeout: 200000
   }
 };
 

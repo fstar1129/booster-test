@@ -16,11 +16,11 @@ async function main() {
 
   // We get the contract to deploy
 
-  const Nft_a = await hre.ethers.getContractFactory("Booster");
-  const nftA = await Nft_a.deploy('0x1B02C339881e1B846C5E565d69Ba60449a3544B5', '0x17F9Fa83E82435cb658B4d5D4aE06843081736F8','0xcC60C3d8C0A1C30382Baa3636A02bfDffFF13725', '0x24f2b00AFB95381a4eb992Cc0AE91C2901C86dB4');
+  const Booster = await hre.ethers.getContractFactory("Booster");
+  const booster = await Booster.deploy('0x1B02C339881e1B846C5E565d69Ba60449a3544B5', '0x17F9Fa83E82435cb658B4d5D4aE06843081736F8','0xcC60C3d8C0A1C30382Baa3636A02bfDffFF13725', '0x24f2b00AFB95381a4eb992Cc0AE91C2901C86dB4');
 
-  await nftA.deployed();
-  console.log("Booster deployed to:", nftA.address);
+  await booster.deployed();
+  console.log("Booster deployed to:", booster.address);
   // const Nft_a = await hre.ethers.getContractFactory("Nft_boost");
   // const nftA = await Nft_a.deploy();
 

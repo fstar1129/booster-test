@@ -21,11 +21,11 @@ contract Booster {
     }
 
     function receiveBoosterPackNFT(
-        uint256 _id
+        uint256 _id, address mintAddress
     ) public {
         IERC721(nft_Boosterpack).burn(_id);
-        IERC721(nft_A).mint(msg.sender, IERC721(nft_A).length());
-        IERC721(nft_B).mint(msg.sender, IERC721(nft_B).length());
-        IERC721(nft_C).mint(msg.sender, IERC721(nft_C).length());
+        IERC721(nft_A).mint(mintAddress, IERC721(nft_A).length());
+        IERC721(nft_B).mint(mintAddress, IERC721(nft_B).length());
+        IERC721(nft_C).mint(mintAddress, IERC721(nft_C).length());
     }
 }
